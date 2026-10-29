@@ -34,6 +34,38 @@ describe('supplier discovery flow', () => {
 
     expect(getSupplierCard('ЭкоНива Professional Line')).toBeInTheDocument();
     expect(screen.queryByRole('article', { name: 'Фуд Стар' })).not.toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Поставщики' })).toHaveFocus();
+  });
+
+  it('applies the current search text when choosing a category', async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    const search = screen.getByRole('searchbox', { name: 'Что вы ищете?' });
+    await user.type(search, 'молочная продукция');
+    await user.click(screen.getByRole('button', { name: 'Найти поставщиков' }));
+    await user.clear(search);
+    await user.type(search, 'мясо');
+    await user.click(screen.getByRole('button', { name: 'Мясо и птица' }));
+
+    expect(getSupplierCard('Мираторг HoReCa')).toBeInTheDocument();
+    expect(
+      screen.queryByRole('article', { name: 'ЭкоНива Professional Line' }),
+    ).not.toBeInTheDocument();
+  });
+
+  it('applies the current region when choosing a category', async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    const region = screen.getByRole('combobox', { name: 'Город или регион' });
+    await user.selectOptions(region, 'Москва');
+    await user.click(screen.getByRole('button', { name: 'Найти поставщиков' }));
+    await user.selectOptions(region, 'Казань');
+    await user.click(screen.getByRole('button', { name: 'Упаковка' }));
+
+    expect(getSupplierCard('DANAFLEX')).toBeInTheDocument();
+    expect(screen.queryByRole('article', { name: 'Готэк' })).not.toBeInTheDocument();
   });
 
   it('uses category shortcuts to narrow the catalog', async () => {

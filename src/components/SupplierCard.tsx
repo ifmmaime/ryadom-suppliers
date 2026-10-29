@@ -8,6 +8,7 @@ import {
   TruckIcon,
 } from '@phosphor-icons/react';
 import type { Supplier } from '../types';
+import { MAX_COMPARISON_ITEMS } from '../lib/limits';
 
 interface SupplierCardProps {
   supplier: Supplier;
@@ -89,7 +90,9 @@ export function SupplierCard({
         </button>
         <label
           className={`compare-label ${comparisonFull && !selected ? 'is-disabled' : ''}`}
-          title={comparisonFull && !selected ? 'В сравнении уже три поставщика' : undefined}
+          title={
+            comparisonFull && !selected ? `Лимит сравнения: ${MAX_COMPARISON_ITEMS}` : undefined
+          }
         >
           <input
             type="checkbox"

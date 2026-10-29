@@ -398,9 +398,6 @@ svg {
   line-height: 32px;
   letter-spacing: -0.7px;
 }
-.results h2:focus {
-  outline: none;
-}
 .result-count {
   display: grid;
   place-items: center;

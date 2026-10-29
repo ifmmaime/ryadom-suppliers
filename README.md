@@ -38,7 +38,7 @@
 
 ## Локальный запуск
 
-Требования: Node.js 24 и pnpm 11.
+Требования: Node.js >=22.12.0 и pnpm 11. В CI используется Node.js 24.
 
 ```bash
 pnpm install --frozen-lockfile
@@ -54,11 +54,11 @@ pnpm check
 pnpm build
 ```
 
-`pnpm check` запускает проверку типов, линтер, 23 теста логики и пользовательских сценариев, а также проверку форматирования. `pnpm build` создаёт статическую production-сборку в `dist/`.
+`pnpm check` запускает проверку типов, линтер, 27 тестов логики и пользовательских сценариев, а также проверку форматирования. `pnpm build` создаёт статическую production-сборку в `dist/`.
 
 ## Публикация на Vercel
 
-Готовую сборку можно опубликовать без подключения GitHub: выполнить `pnpm build`, в Vercel выбрать **New Project → Choose a folder to deploy** и загрузить папку `dist/`. Также можно загрузить ZIP с содержимым этой папки. Для обновления в форме загрузки выбрать **Deploy to an existing project instead** и указать `ryadom-suppliers` в команде Aids1999.
+Готовую сборку можно опубликовать без подключения GitHub: выполнить `pnpm build`, в Vercel выбрать **New Project → Choose a folder to deploy** и загрузить папку `dist/`. Также можно загрузить ZIP с содержимым этой папки. Для обновления в форме загрузки выбрать **Deploy to an existing project instead** и указать существующий проект.
 
 Для автоматических публикаций из GitHub:
 

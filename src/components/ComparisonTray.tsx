@@ -1,6 +1,7 @@
 import { ArrowRightIcon, ScalesIcon, XIcon } from '@phosphor-icons/react';
 import type { JSX } from 'react';
 import type { Supplier } from '../types';
+import { MAX_COMPARISON_ITEMS } from '../lib/limits';
 
 interface ComparisonTrayProps {
   suppliers: Supplier[];
@@ -21,7 +22,9 @@ export function ComparisonTray({
         <ScalesIcon size={23} />
         <div>
           <strong>Сравните условия</strong>
-          <span>{suppliers.length} из 3 поставщиков</span>
+          <span>
+            {suppliers.length} из {MAX_COMPARISON_ITEMS} поставщиков
+          </span>
         </div>
       </div>
       <div className="tray-items">

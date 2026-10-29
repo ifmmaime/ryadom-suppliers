@@ -8,6 +8,7 @@ import {
 import type { Supplier } from '../types';
 import { CATEGORIES } from '../data/suppliers';
 import { getSupplierSummary } from '../lib/catalog';
+import { MAX_NOTE_LENGTH } from '../lib/limits';
 import { Modal } from './Modal';
 
 interface SupplierDetailsProps {
@@ -91,14 +92,16 @@ export function SupplierDetails({ supplier, note, onNote, onClose }: SupplierDet
         <textarea
           id="supplier-note"
           placeholder="Например: запросить прайс и образцы, уточнить доставку"
-          maxLength={1000}
+          maxLength={MAX_NOTE_LENGTH}
           value={note}
           onChange={(event) => onNote(event.target.value)}
           rows={3}
         />
         <div className="note-caption">
           <span>Сохраняются в этом браузере</span>
-          <span>{note.length}/1000</span>
+          <span>
+            {note.length}/{MAX_NOTE_LENGTH}
+          </span>
         </div>
       </section>
       <div className="provenance">

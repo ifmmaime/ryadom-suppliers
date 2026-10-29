@@ -90,7 +90,7 @@ describe('catalog', () => {
 
     expect(REGIONS[0]).toBe('Все регионы');
     expect(REGIONS.at(-1)).toBe('Вся Россия');
-    expect(REGIONS).not.toContain('Регионы России');
+    expect(REGIONS).toContain('Регионы России');
     expect(REGIONS).toEqual(expect.arrayContaining(concreteSupplierRegions));
   });
 
@@ -112,6 +112,15 @@ describe('catalog', () => {
           supplier.regions.includes('Казань') || supplier.regions.includes('Вся Россия'),
       ),
     ).toBe(true);
+  });
+
+  it('позволяет найти поставщиков с широкой географией без обещания доставки в каждый город', () => {
+    const result = filterSuppliers(SUPPLIERS, { ...defaultFilters, region: 'Регионы России' }, []);
+
+    expect(result.map((supplier) => supplier.id)).toEqual(
+      expect.arrayContaining(['ekoniva', 'metro-business', 'rusagro', 'arosa']),
+    );
+    expect(result.some((supplier) => supplier.id === 'food-star')).toBe(false);
   });
 
   it('показывает только избранное и не меняет исходный массив', () => {
@@ -139,7 +148,39 @@ describe('catalog', () => {
       [],
     );
 
-    expect(getCompleteness(result[0])).toBeGreaterThanOrEqual(getCompleteness(result.at(-1)!));
+    for (let index = 1; index < result.length; index += 1) {
+      const previous = result[index - 1];
+      const current = result[index];
+      expect(getCompleteness(previous)).toBeGreaterThanOrEqual(getCompleteness(current));
+      if (getCompleteness(previous) === getCompleteness(current)) {
+        expect(previous.name.localeCompare(current.name, 'ru-RU')).toBeLessThanOrEqual(0);
+      }
+    }
+
+    const tiedSuppliers = ['Ясень', 'Берег', 'Альфа'].map((name, index) => ({
+      ...SUPPLIERS[0],
+      id: `tie-${index}`,
+      name,
+    }));
+    expect(
+      filterSuppliers(tiedSuppliers, { ...defaultFilters, sort: 'completeness' }, []).map(
+        (supplier) => supplier.name,
+      ),
+    ).toEqual(['Альфа', 'Берег', 'Ясень']);
+  });
+
+  it('содержит уникальные записи с корректными ссылками, категориями и датами', () => {
+    expect(new Set(SUPPLIERS.map((supplier) => supplier.id)).size).toBe(SUPPLIERS.length);
+    for (const supplier of SUPPLIERS) {
+      expect(supplier.id.trim()).not.toBe('');
+      expect(supplier.name.trim()).not.toBe('');
+      expect(supplier.categoryIds.length).toBeGreaterThan(0);
+      expect(supplier.regions.length).toBeGreaterThan(0);
+      expect(new URL(supplier.website).protocol).toBe('https:');
+      expect(new URL(supplier.sourceUrl).protocol).toBe('https:');
+      expect(supplier.verifiedAt).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+      expect(new Date(supplier.verifiedAt).toISOString().slice(0, 10)).toBe(supplier.verifiedAt);
+    }
   });
 
   it('не принимает неизвестные поля за доступную информацию', () => {

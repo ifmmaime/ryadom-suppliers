@@ -277,4 +277,4 @@ const concreteRegions = [
   ),
 ].sort((left, right) => left.localeCompare(right, 'ru-RU'));
 
-export const REGIONS = ['Все регионы', ...concreteRegions, 'Вся Россия'];
+export const REGIONS = ['Все регионы', ...concreteRegions, 'Регионы России', 'Вся Россия'];

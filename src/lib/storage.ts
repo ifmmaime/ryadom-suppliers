@@ -1,9 +1,8 @@
 import { SUPPLIERS } from '../data/suppliers';
 import type { UserCatalogState } from '../types';
+import { MAX_COMPARISON_ITEMS, MAX_NOTE_LENGTH } from './limits';
 
 export const STORAGE_KEY = 'ryadom:user-catalog:v1';
-const MAX_COMPARISON_ITEMS = 3;
-const MAX_NOTE_LENGTH = 1000;
 
 export interface StorageLike {
   getItem(key: string): string | null;

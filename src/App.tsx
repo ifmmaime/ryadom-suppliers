@@ -17,6 +17,7 @@ import { SearchPanel } from './components/SearchPanel';
 import { SupplierCard } from './components/SupplierCard';
 import { SupplierDetails } from './components/SupplierDetails';
 import { filterSuppliers } from './lib/catalog';
+import { MAX_COMPARISON_ITEMS } from './lib/limits';
 import { loadCatalogState, saveCatalogState } from './lib/storage';
 import type { CatalogFilters, Supplier, UserCatalogState } from './types';
 
@@ -54,10 +55,14 @@ export default function App(): JSX.Element {
     filters.query || filters.category !== 'all' || filters.region !== 'Все регионы',
   );
 
+  function applySearch(category = filters.category) {
+    setFilters((current) => ({ ...current, query: query.trim(), region, category }));
+    resultsRef.current?.focus();
+  }
+
   function search(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setFilters((current) => ({ ...current, query: query.trim(), region }));
-    resultsRef.current?.focus();
+    applySearch();
   }
 
   function toggleFavorite(supplier: Supplier) {
@@ -80,7 +85,7 @@ export default function App(): JSX.Element {
     }
     updateSaved((current) => {
       const exists = current.comparisonIds.includes(id);
-      if (!exists && current.comparisonIds.length >= 3) return current;
+      if (!exists && current.comparisonIds.length >= MAX_COMPARISON_ITEMS) return current;
       return {
         ...current,
         comparisonIds: exists
@@ -114,7 +119,7 @@ export default function App(): JSX.Element {
         onOpenHelp={() => setShowHelp(true)}
       />
 
-      <main id="main" className="main-content">
+      <main id="main" className="main-content" tabIndex={-1}>
         <header className="topbar">
           <div className="breadcrumb">
             <HouseIcon size={16} />
@@ -157,7 +162,7 @@ export default function App(): JSX.Element {
               key={category.id}
               className={`category ${filters.category === category.id ? 'selected' : ''}`}
               aria-pressed={filters.category === category.id}
-              onClick={() => setFilters((current) => ({ ...current, category: category.id }))}
+              onClick={() => applySearch(category.id)}
             >
               <img src={category.image} alt="" loading="eager" />
               <span className="category-shade" />
@@ -227,7 +232,7 @@ export default function App(): JSX.Element {
                   supplier={supplier}
                   favorite={saved.favoriteIds.includes(supplier.id)}
                   selected={saved.comparisonIds.includes(supplier.id)}
-                  comparisonFull={selected.length >= 3}
+                  comparisonFull={selected.length >= MAX_COMPARISON_ITEMS}
                   onFavorite={() => toggleFavorite(supplier)}
                   onCompare={() => toggleCompare(supplier.id)}
                   onDetails={() => setDetails(supplier)}
