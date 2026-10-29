@@ -1,0 +1,280 @@
+import type { Category, Supplier } from '../types';
+
+export const CATEGORIES: Category[] = [
+  { id: 'all', label: 'Все категории', image: '/images/category-all.webp' },
+  { id: 'produce', label: 'Овощи и фрукты', image: '/images/category-produce.webp' },
+  { id: 'dairy', label: 'Молочная продукция', image: '/images/category-dairy.webp' },
+  { id: 'meat', label: 'Мясо и птица', image: '/images/category-meat.webp' },
+  { id: 'grocery', label: 'Бакалея', image: '/images/category-grocery.webp' },
+  { id: 'packaging', label: 'Упаковка', image: '/images/category-packaging.webp' },
+];
+
+const VERIFIED_AT = '2026-10-29';
+
+/**
+ * Небольшой демонстрационный каталог из открытых официальных источников.
+ * Поля без опубликованных условий намеренно оставлены null: интерфейс показывает
+ * их как «Уточнить у поставщика», а не подменяет отсутствующие данные догадками.
+ */
+export const SUPPLIERS: Supplier[] = [
+  {
+    id: 'food-star',
+    name: 'Фуд Стар',
+    initials: 'ФС',
+    categoryIds: ['produce', 'grocery'],
+    regions: ['Москва'],
+    city: 'Москва',
+    description:
+      'Овощи, фрукты, ягоды, зелень, орехи и сухофрукты для ресторанов, отелей и предприятий питания.',
+    website: 'https://food-star.ru/',
+    sourceUrl: 'https://food-star.ru/',
+    phone: '+7 968 546-13-13',
+    email: 'zakazprod2019@mail.ru',
+    minOrder: null,
+    price: 'Цены опубликованы в каталоге; персональное предложение — по запросу',
+    documents: 'Договор, счёт, УПД, декларации и сертификаты',
+    delivery: 'Москва: бесплатно от 25 000 ₽; поставка на следующий день',
+    verifiedAt: VERIFIED_AT,
+    sourceNote: 'Ассортимент, контакты, документы и доставка указаны на официальном сайте.',
+  },
+  {
+    id: 'evrofresh',
+    name: 'Evro Fresh',
+    initials: 'EF',
+    categoryIds: ['produce'],
+    regions: ['Москва', 'Вся Россия'],
+    city: 'Москва',
+    description:
+      'Оптовые поставки овощей, фруктов, грибов и орехов со склада на территории агрокластера «Фуд Сити».',
+    website: 'https://evrofresh.ru/',
+    sourceUrl: 'https://evrofresh.ru/',
+    phone: '+7 495 128-00-83',
+    email: 'info@evrofresh.ru',
+    minOrder: 'Доступен мелкий опт; точный порог нужно уточнить',
+    price: 'Прайс-лист по запросу',
+    documents: 'Сопроводительные документы и сертификаты',
+    delivery: 'Москва и отправка в регионы России',
+    verifiedAt: VERIFIED_AT,
+    sourceNote: 'География, контакты и наличие сертификатов указаны на официальном сайте.',
+  },
+  {
+    id: 'ekoniva',
+    name: 'ЭкоНива Professional Line',
+    initials: 'ЭН',
+    categoryIds: ['dairy'],
+    regions: ['Москва', 'Санкт-Петербург', 'Регионы России'],
+    city: 'Воронеж',
+    description:
+      'Профессиональная линейка молока, сливок, масла и творога для кофеен, ресторанов и гостиниц.',
+    website: 'https://www.ekoniva-moloko.com/horeca',
+    sourceUrl: 'https://www.ekoniva-moloko.com/horeca',
+    phone: '8 800 550-57-00',
+    email: 'contact@ekoniva-moloko.com',
+    minOrder: 'Прямые отгрузки доступны при определённом объёме; порог по запросу',
+    price: null,
+    documents: null,
+    delivery: 'Через дистрибьюторов почти по всей России',
+    verifiedAt: VERIFIED_AT,
+    sourceNote:
+      'Компания пишет о работе через дистрибьюторов почти по всей России; доступность в конкретном городе нужно подтвердить.',
+  },
+  {
+    id: 'miratorg-horeca',
+    name: 'Мираторг HoReCa',
+    initials: 'МТ',
+    categoryIds: ['meat'],
+    regions: ['Москва', 'Санкт-Петербург', 'Вся Россия'],
+    city: 'Домодедово',
+    description:
+      'Мясо и мясные полуфабрикаты для ресторанов, гостиниц, кафе и баров с низкотемпературной логистикой.',
+    website: 'https://miratorg.ru/business/horeca/index1.php',
+    sourceUrl: 'https://miratorg.ru/business/horeca/index1.php',
+    phone: '8 800 100-80-87',
+    email: 'wg_supervisor_horeca@agrohold.ru',
+    minOrder: 'От одной коробки',
+    price: 'Прайс-лист по запросу',
+    documents: null,
+    delivery: 'По России, включая доставку день в день там, где она доступна',
+    verifiedAt: VERIFIED_AT,
+    sourceNote:
+      'Минимальная партия, география, контакты и логистика указаны на официальной HoReCa-странице.',
+  },
+  {
+    id: 'metro-business',
+    name: 'METRO для бизнеса',
+    initials: 'ME',
+    categoryIds: ['produce', 'dairy', 'meat', 'grocery', 'packaging'],
+    regions: ['Москва', 'Санкт-Петербург', 'Регионы России'],
+    city: 'Москва',
+    description:
+      'Оптовый ассортимент продуктов, ингредиентов и непродовольственных товаров для HoReCa и независимой розницы.',
+    website: 'https://metro-cc.ru/for-business',
+    sourceUrl: 'https://metro-cc.ru/for-business',
+    phone: null,
+    email: null,
+    minOrder: null,
+    price: 'Актуальные цены доступны в каталоге для выбранного торгового центра',
+    documents: 'Полный пакет документов',
+    delivery: 'Доставка в течение дня; условия зависят от адреса и торгового центра',
+    verifiedAt: VERIFIED_AT,
+    sourceNote:
+      'Ассортимент для бизнеса, документы и доставка подтверждены официальной страницей; доступность зависит от выбранного торгового центра.',
+  },
+  {
+    id: 'makfa-horeca',
+    name: 'MAKFA HoReCa',
+    initials: 'MA',
+    categoryIds: ['grocery'],
+    regions: ['Челябинск'],
+    city: 'Челябинск',
+    description:
+      'Макаронные изделия, мука, смеси, крупы и хлопья в профессиональных форматах для предприятий питания.',
+    website: 'https://www.makfa.ru/',
+    sourceUrl: 'https://www.makfa.ru/catalog/horeca/',
+    phone: '8 800 500-08-04',
+    email: null,
+    minOrder: null,
+    price: null,
+    documents: null,
+    delivery: null,
+    verifiedAt: VERIFIED_AT,
+    sourceNote:
+      'HoReCa-линейка и телефон опубликованы на официальном сайте; география продаж и коммерческие условия на странице не указаны.',
+  },
+  {
+    id: 'rusagro',
+    name: 'Русагро',
+    initials: 'РА',
+    categoryIds: ['dairy', 'meat', 'grocery'],
+    regions: ['Москва', 'Санкт-Петербург', 'Регионы России'],
+    city: 'Москва',
+    description:
+      'Производитель масел, соусов, промышленных жиров, молочной и мясной продукции для B2B и розницы.',
+    website: 'https://www.rusagrogroup.ru/ru/biznes/pokupateljam/',
+    sourceUrl: 'https://www.rusagrogroup.ru/ru/biznes/pokupateljam/',
+    phone: '+7 800 700-79-00',
+    email: 'off@rusagromaslo.com',
+    minOrder: null,
+    price: null,
+    documents: 'На сайте опубликована информация о безопасности и качестве по направлениям бизнеса',
+    delivery: null,
+    verifiedAt: VERIFIED_AT,
+    sourceNote:
+      'Официальный сайт сообщает о продажах более чем в 80 регионах; доступность конкретной позиции нужно уточнять.',
+  },
+  {
+    id: 'alternative-horeca',
+    name: 'Alternative HoReCa',
+    initials: 'AH',
+    categoryIds: ['produce', 'dairy', 'meat', 'grocery'],
+    regions: ['Москва', 'Санкт-Петербург'],
+    city: 'Санкт-Петербург',
+    description:
+      'Комплексные поставки мяса, молочной продукции, сыров, овощей, пасты и бакалеи для профессиональной кухни.',
+    website: 'https://www.ahoreca.info/',
+    sourceUrl: 'https://www.ahoreca.info/',
+    phone: '+7 921 096-17-46',
+    email: 'hello@ahoreca.su',
+    minOrder: 'Первый заказ без минимума; повторные поставки от 10 000 ₽',
+    price: 'По запросу',
+    documents: 'Договор, НДС, «Меркурий», «Честный знак»',
+    delivery: 'По будням в Санкт-Петербурге, Ленинградской области и Москве',
+    verifiedAt: VERIFIED_AT,
+    sourceNote: 'Условия, география, документы и контакты опубликованы на официальном сайте.',
+  },
+  {
+    id: 'eurofoods',
+    name: 'ЕвроФудс',
+    initials: 'ЕФ',
+    categoryIds: ['dairy', 'meat', 'grocery'],
+    regions: ['Санкт-Петербург'],
+    city: 'Санкт-Петербург',
+    description:
+      'Комплексный поставщик продуктов для HoReCa в Санкт-Петербурге и на Северо-Западе.',
+    website: 'https://efspb.ru/',
+    sourceUrl: 'https://efspb.ru/',
+    phone: '+7 812 321-61-31',
+    email: 'zakaz@efspb.ru',
+    minOrder: 'Можно заказывать товар поштучно; точную сумму заказа нужно уточнить',
+    price: 'Индивидуальный прайс с фиксацией цены на месяц',
+    documents: null,
+    delivery: 'Возможна доставка день в день для заказа до 12:30',
+    verifiedAt: VERIFIED_AT,
+    sourceNote: 'Ассортимент, контакты, формат цены и доставки опубликованы на официальном сайте.',
+  },
+  {
+    id: 'arosa',
+    name: 'Ароса',
+    initials: 'АР',
+    categoryIds: ['dairy', 'meat', 'grocery'],
+    regions: ['Москва', 'Санкт-Петербург', 'Регионы России'],
+    city: 'Москва',
+    description:
+      'Профессиональный поставщик продуктов для HoReCa с офисами в Москве, Санкт-Петербурге и Краснодаре.',
+    website: 'https://arosa.ru/',
+    sourceUrl: 'https://arosa.ru/',
+    phone: '+7 495 933-20-23',
+    email: 'info@arosa.ru',
+    minOrder: null,
+    price: null,
+    documents: null,
+    delivery: 'Поставки в 150 городов России',
+    verifiedAt: VERIFIED_AT,
+    sourceNote:
+      'Официальный сайт сообщает о поставках в 150 городов; конкретный адрес нужно проверить у поставщика.',
+  },
+  {
+    id: 'danaflex',
+    name: 'DANAFLEX',
+    initials: 'DF',
+    categoryIds: ['packaging'],
+    regions: ['Казань'],
+    city: 'Казань',
+    description:
+      'Гибкая упаковка и плёнки для мяса, молочной продукции, бакалеи, кофе, кондитерских изделий и соусов.',
+    website: 'https://danaflex-group.com/ru',
+    sourceUrl: 'https://danaflex-group.com/ru',
+    phone: '+7 843 212-65-36',
+    email: 'danaflex@danaflex-group.com',
+    minOrder: null,
+    price: null,
+    documents: null,
+    delivery: null,
+    verifiedAt: VERIFIED_AT,
+    sourceNote:
+      'Категории упаковки и контакты подтверждены официальным сайтом; публичной географии доставки нет.',
+  },
+  {
+    id: 'gotek',
+    name: 'Готэк',
+    initials: 'ГТ',
+    categoryIds: ['packaging'],
+    regions: ['Москва', 'Санкт-Петербург', 'Железногорск'],
+    city: 'Железногорск',
+    description:
+      'Картонная и гибкая упаковка для еды и напитков с проектированием, моделированием и технологической поддержкой.',
+    website: 'https://gotek.ru/',
+    sourceUrl: 'https://gotek.ru/',
+    phone: '8 800 770-00-03',
+    email: null,
+    minOrder: null,
+    price: null,
+    documents: null,
+    delivery: 'Доступны поставки «точно в срок»; конкретные условия по запросу',
+    verifiedAt: VERIFIED_AT,
+    sourceNote:
+      'Продуктовые категории, перечисленные локации предприятий и телефон подтверждены официальным сайтом; географию поставки нужно уточнить.',
+  },
+];
+
+const AGGREGATE_REGIONS = new Set(['Вся Россия', 'Регионы России']);
+
+const concreteRegions = [
+  ...new Set(
+    SUPPLIERS.flatMap((supplier) => supplier.regions).filter(
+      (region) => !AGGREGATE_REGIONS.has(region),
+    ),
+  ),
+].sort((left, right) => left.localeCompare(right, 'ru-RU'));
+
+export const REGIONS = ['Все регионы', ...concreteRegions, 'Вся Россия'];
