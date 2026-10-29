@@ -3,7 +3,6 @@
 }
 body {
   margin: 0;
-  min-width: 320px;
 }
 button,
 input,
@@ -392,6 +391,7 @@ svg {
 }
 .results-toolbar {
   justify-content: space-between;
+  flex-wrap: wrap;
 }
 .results h2 {
   font-size: var(--text-2xl);
@@ -412,6 +412,9 @@ svg {
   color: var(--muted);
   font-size: var(--text-xs);
   font-weight: 600;
+}
+.sort-label {
+  margin-left: auto;
 }
 .sort-label select {
   background: var(--surface);
