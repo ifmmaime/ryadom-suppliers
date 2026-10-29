@@ -17,6 +17,7 @@
 - `pnpm install --frozen-lockfile` — успешно.
 - `pnpm check` — успешно: TypeScript, ESLint, 23 теста и Prettier.
 - `pnpm build` — успешно.
+- [GitHub Actions на Ubuntu](https://github.com/ifmmaime/ryadom-suppliers/actions/runs/40866340011) — успешно: установка по lockfile, типы, линтер, 23 теста, форматирование и production-сборка. Версия pnpm берётся из `packageManager` без дублирования в CI.
 - Все 12 ссылок на официальные источники вернули HTTP 200; названия страниц сверены с поставщиками. Адрес почты Alternative HoReCa с доменом `ahoreca.su` опубликован на сайте `ahoreca.info`.
 
 ## Сравнение с визуальным концептом
